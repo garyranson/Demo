@@ -5,7 +5,7 @@ var azure = require('azure');
 
 var serviceBusService = azure.createServiceBusService();
 
-serviceBusService.createQueueIfNotExists('testqueue2', function(error){
+serviceBusService.createQueueIfNotExists('testqueue3', function(error){
     if(!error){
         // Queue exists
     }
@@ -15,21 +15,18 @@ var port = process.env.PORT || 1337;
 http.createServer(function(req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   
-  var now = new Date();
-  
-  var message = {
-    body: 'Test message :'+now.format("dd/M/yy h:mm tt"),
-    customProperties: {
-        testproperty: 'TestValue'
-    }
+	var message = {
+		body: 'Test message :',
+		customProperties: {testproperty: 'TestValue'}
 	};
-	serviceBusService.sendQueueMessage('testqueue2', message, function(error){
-    if(!error){
-        // message sent
-    }
-	});
+	serviceBusService.sendQueueMessage('testqueue', message, function(error){
+		if(!error){
+			// message sent
+		}
+	}
+	);
 	
-	res.end('Hello World bingo azure 2 with q2\n');
+	res.end('Hello World bingo azure 2 with q3\n');
 
   
 }).listen(port);
