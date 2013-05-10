@@ -21,13 +21,15 @@ http.createServer(function(req, res) {
     body: 'Test message :'+now.format("dd/M/yy h:mm tt"),
     customProperties: {
         testproperty: 'TestValue'
-    };
+    }
+	};
 	serviceBusService.sendQueueMessage('testqueue2', message, function(error){
     if(!error){
         // message sent
     }
-});
-	res.end('Hello World bingo azure with queue send\n');
+	});
+	
+	res.end('Hello World bingo azure 2 with q2\n');
 
   
 }).listen(port);
