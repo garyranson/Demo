@@ -14,5 +14,20 @@ serviceBusService.createQueueIfNotExists('testqueue2', function(error){
 var port = process.env.PORT || 1337;
 http.createServer(function(req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello World bingo azure 2 fredy\n');
+  
+  var now = new Date();
+  
+  var message = {
+    body: 'Test message :'+now.format("dd/M/yy h:mm tt"),
+    customProperties: {
+        testproperty: 'TestValue'
+    };
+	serviceBusService.sendQueueMessage('testqueue2', message, function(error){
+    if(!error){
+        // message sent
+    }
+});
+	res.end('Hello World bingo azure with queue send\n');
+
+  
 }).listen(port);
