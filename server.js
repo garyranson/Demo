@@ -5,7 +5,7 @@ var azure = require('azure');
 
 var serviceBusService = azure.createServiceBusService();
 
-serviceBusService.createQueueIfNotExists('testqueue', function(error){
+serviceBusService.createQueueIfNotExists('testqueue2', function(error){
     if(!error){
         // Queue exists
     }
@@ -14,5 +14,5 @@ serviceBusService.createQueueIfNotExists('testqueue', function(error){
 var port = process.env.PORT || 1337;
 http.createServer(function(req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello World bingo azure 2\n');
+  res.end('Hello World bingo azure 2 fredy\n');
 }).listen(port);
