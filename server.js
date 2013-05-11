@@ -11,16 +11,6 @@ serviceBusService.createQueueIfNotExists('testqueue3', function(error){
     }
 });
 
-var postHTML = 
-  '<html><head><title>Post Example</title></head>' +
-  '<body>' +
-  '<form method="post">' +
-  'Input 1: <input name="input1"><br>' +
-  'Input 2: <input name="input2"><br>' +
-  '<input type="submit">' +
-  '</form>' +
-  '</body></html>';
-
 var port = process.env.PORT || 1337;
 http.createServer(function(req, res) {
 
@@ -40,10 +30,6 @@ http.createServer(function(req, res) {
 		}
 		);
 		res.writeHead(200, { 'Content-Type': 'text/plain' });
-		res.end('Thanks2\n');
+		res.end('loaderio-493151bc95c1d6ef3d271b97e6823007');
 	});
-
-	
-
-  
 }).listen(port);
