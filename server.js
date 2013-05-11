@@ -11,22 +11,39 @@ serviceBusService.createQueueIfNotExists('testqueue3', function(error){
     }
 });
 
+var postHTML = 
+  '<html><head><title>Post Example</title></head>' +
+  '<body>' +
+  '<form method="post">' +
+  'Input 1: <input name="input1"><br>' +
+  'Input 2: <input name="input2"><br>' +
+  '<input type="submit">' +
+  '</form>' +
+  '</body></html>';
+
 var port = process.env.PORT || 1337;
 http.createServer(function(req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  
-	var message = {
-		body: 'Test message :',
-		customProperties: {testproperty: 'TestValue'}
-	};
-	serviceBusService.sendQueueMessage('testqueue', message, function(error){
-		if(!error){
-			// message sent
+
+	var body = "";
+	req.on('data', function (chunk) {
+		body += chunk;
+	});
+	req.on('end', function () {
+		var message = {
+			body: body,
+			customProperties: {requestUrl: req.url}
+		};
+		serviceBusService.sendQueueMessage('testqueue', message, function(error){
+			if(!error){
+				// message sent
+			}
 		}
-	}
-	);
+		);
+		res.writeHead(200, { 'Content-Type': 'text/plain' });
+		res.end('Thanks\n');
+	});
+
 	
-	res.end('Hello World bingo azure 2 with q3\n');
 
   
 }).listen(port);
