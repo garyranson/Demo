@@ -11,13 +11,53 @@ var azure = require('azure');
 
 console.log("Got requires");
 
+var queueService = azure.createQueueService();
+
+console.log("Created service");
+
+queueService.createQueueIfNotExists("testqueue", 
+	function(error){
+		if(!error){
+			console.log("Queue already exists");
+		}
+	}
+);
+
+
 
 var port = process.env.PORT || 1337;
 
 function ServerRequest(req,res) {
 	var body = "";
-		res.writeHead(200, { 'Content-Type': 'text/plain' });
-		res.end('loaderio-493151bc95c1d6ef3d271b97e6823007');
+	
+	req.on('data', 
+		function (chunk) {
+			body += chunk;
+			console.log("Chunk");
+		}
+	);
+	
+	req.on('end', 
+		function () {
+			var message = {
+				body: body,
+			};
+			console.log("Sneding");
+			
+			queueService.createMessage("testqueue", message, 
+				function(error){
+					if(!error){
+						console.log("Inserted");
+					}
+				}
+			);		
+			
+			console.log("Response");	
+		
+			res.writeHead(200, { 'Content-Type': 'text/plain' });
+			res.end('loaderio-493151bc95c1d6ef3d271b97e6823007');
+		}
+	);
 }
 
 http.createServer(ServerRequest).listen(port);
