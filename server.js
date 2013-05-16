@@ -25,18 +25,21 @@ function ServerRequest(req,res) {
 				customProperties: {requestUrl: req.url}
 			};
 			
-			var queueName = (Math.floor((Math.random()*10)+1)>=5)?"testqueue":"testqueue3";
+			var queueName = (Math.floor((Math.random()*10)+1)>=4)?"testqueue":"testqueue3";
 			
 			serviceBusService.sendQueueMessage(queueName, message, 
 				function(error){
 					if(!error){
-						// message sent
+						res.writeHead(200, { 'Content-Type': 'text/plain' });
+						res.end('loaderio-493151bc95c1d6ef3d271b97e6823007');
+					}
+					else {
+						res.writeHead(500, { 'Content-Type': 'text/plain' });
+						res.end('loaderio-493151bc95c1d6ef3d271b97e6823007');
 					}
 				}
 			);
 			
-			res.writeHead(200, { 'Content-Type': 'text/plain' });
-			res.end('loaderio-493151bc95c1d6ef3d271b97e6823007');
 		}
 	);
 }
