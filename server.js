@@ -25,7 +25,9 @@ function ServerRequest(req,res) {
 				customProperties: {requestUrl: req.url}
 			};
 			
-			serviceBusService.sendQueueMessage('testqueue', message, 
+			var queueName = (Math.floor((Math.random()*10)+1)>=5)?"testqueue":"testqueue3";
+			
+			serviceBusService.sendQueueMessage(queueName, message, 
 				function(error){
 					if(!error){
 						// message sent
