@@ -1,0 +1,32 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@1.1.37
+3 info using node@v0.6.20
+4 verbose node symlink C:\Program Files (x86)\nodejs\\node.exe
+5 verbose config file C:\Users\Gary\.npmrc
+6 verbose config file C:\Program Files (x86)\nodejs\etc\npmrc
+7 verbose config file C:\Program Files (x86)\nodejs\node_modules\npm\npmrc
+8 verbose read json G:\users\Gary\Documents\GitHub\demo\package.json
+9 error install Couldn't read dependencies
+10 error Error: ENOENT, open 'G:\users\Gary\Documents\GitHub\demo\package.json'
+10 error  { [Error: ENOENT, open 'G:\users\Gary\Documents\GitHub\demo\package.json']
+10 error   errno: 34,
+10 error   code: 'ENOENT',
+10 error   path: 'G:\\users\\Gary\\Documents\\GitHub\\demo\\package.json' }
+11 error You may report this log at:
+11 error     <http://github.com/isaacs/npm/issues>
+11 error or email it to:
+11 error     <npm-@googlegroups.com>
+12 error System Windows_NT 6.1.7601
+13 error command "C:\\Program Files (x86)\\nodejs\\\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+14 error cwd G:\users\Gary\Documents\GitHub\demo
+15 error node -v v0.6.20
+16 error npm -v 1.1.37
+17 error path G:\users\Gary\Documents\GitHub\demo\package.json
+18 error code ENOENT
+19 error message ENOENT, open 'G:\users\Gary\Documents\GitHub\demo\package.json'
+20 error errno 34
+21 error 34 errno
+22 verbose exit [ 34, true ]
