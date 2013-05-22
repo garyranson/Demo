@@ -20,7 +20,7 @@
     <Property name="TargetRuntimeVersion" value="v2.0.50727" />
   </Properties>
   <Sites>
-    <Site name="Web" physicalDirectory="G:\Users\Gary\Documents\GitHub\demo\WebRole1">
+    <Site name="Web" physicalDirectory="G:\USers\Gary\Documents\GitHub\Demo\WebRole1">
       <Bindings>
         <Binding name="Endpoint1" endpointName="Endpoint1" />
       </Bindings>

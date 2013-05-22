@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="demo" generation="1" functional="0" release="0" Id="0ff6a826-3fca-4b83-a4ed-ca60f7055197" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="demo" generation="1" functional="0" release="0" Id="83de55d7-ff82-4f04-96f2-738299aab1ba" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="demoGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -32,7 +32,7 @@
       </maps>
       <components>
         <groupHascomponents>
-          <role name="WebRole1" generation="1" functional="0" release="0" software="G:\Users\Gary\Documents\GitHub\demo\local_package.csx\roles\WebRole1" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaIISHost.exe " memIndex="768" hostingEnvironment="frontendadmin" hostingEnvironmentVersion="2">
+          <role name="WebRole1" generation="1" functional="0" release="0" software="G:\USers\Gary\Documents\GitHub\Demo\local_package.csx\roles\WebRole1" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaIISHost.exe " memIndex="768" hostingEnvironment="frontendadmin" hostingEnvironmentVersion="2">
             <componentports>
               <inPort name="Endpoint1" protocol="http" portRanges="80" />
             </componentports>
@@ -59,9 +59,9 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="e71d478a-cd2c-414d-abb2-ffb6dd408a88" ref="Microsoft.RedDog.Contract\ServiceContract\demoContract@ServiceDefinition">
+    <implementation Id="ac920986-dadc-4e8b-a0f1-763a0d206d09" ref="Microsoft.RedDog.Contract\ServiceContract\demoContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="75c5cd1d-4890-409a-ae09-18e1be367e7e" ref="Microsoft.RedDog.Contract\Interface\WebRole1:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="c38ed682-1857-41a0-9720-e9dc7a97c522" ref="Microsoft.RedDog.Contract\Interface\WebRole1:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/demo/demoGroup/WebRole1:Endpoint1" />
           </inPort>
