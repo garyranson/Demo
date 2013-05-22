@@ -15,25 +15,26 @@ function ServerRequest(req,res) {
 
 	queueId=(queueId+1)%queuelength;
 
-	req.on('data', 
+/*	req.on('data', 
 		function (chunk) {
 			body += chunk;
 		}
 	);
-	
+*/	
 	req.on('end', 
 		function () {
-			var message = {
+/*			var message = {
 				body: body,
 				customProperties: {requestUrl: req.url}
 			};
 
 			SendMessage(queues[queueId],message,0,res);
+*/			res.writeHead(200, { 'Content-Type': 'text/plain' });
+			res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
+
 		}
 	);
-/*	res.writeHead(200, { 'Content-Type': 'text/plain' });
-	res.end("l"); //oaderio-493151bc95c1d6ef3d271b97e6823007");
-*/
+
 }
 
 function SendMessage(queueName,message,iteration,res) {
