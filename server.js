@@ -32,7 +32,7 @@ function ServerRequest(req,res) {
 		}
 	);
 	res.writeHead(200, { 'Content-Type': 'text/plain' });
-	res.end();
+	res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
 
 }
 
