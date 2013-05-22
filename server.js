@@ -4,11 +4,6 @@ var http = require('http'),
 	env   = require('./package.json'),
 	port = process.env.port || 1337;
 
-var http = require('http'),
-	azure = require('azure'),
-	async = require('async'),
-	port = process.env.port || 1337;
-
 var queueId = 0,
  	serviceBusService = azure.createServiceBusService("Endpoint=sb://peractodev.servicebus.windows.net/;SharedSecretIssuer=owner;SharedSecretValue=F9BtX9MXwJYQ2vc4G+GbGeYHn5lrn7UOPVXPRxhMOVQ="),
  	queues = ["testqueue","testqueue2","testqueue3","testqueue4"],
@@ -54,7 +49,7 @@ function SendMessage(queueName,message,iteration,res) {
 				res.end();
 */			}
 			else {
-				setTimeout(function() {SendMessage(queueName,message,iteration+1,res);},100*(iteration+1));
+		/*		setTimeout(function() {SendMessage(queueName,message,iteration+1,res);},100*(iteration+1));*/
 			}
 		}
 	);
@@ -63,12 +58,12 @@ function SendMessage(queueName,message,iteration,res) {
 // Check all the queues, start if there are no failures
 async.forEach(queues, 
 	function(queue, callback) { 
-		console.log('Checking Queue: '+queue);
+		//console.log('Checking Queue: '+queue);
 		serviceBusService.createQueueIfNotExists(queue,callback);
 	}, 
 	function(err) {
 		if(!err) 		{
-			console.log('Listener Started ');
+		//	console.log('Listener Started ');
 			http.createServer(ServerRequest).listen(port);
 		}
 	}
