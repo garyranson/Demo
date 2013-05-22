@@ -10,16 +10,27 @@ process.env.AZURE_SERVICEBUS_ACCESS_KEY= "F9BtX9MXwJYQ2vc4G+GbGeYHn5lrn7UOPVXPRx
 var serviceBusService = azure.createServiceBusService();
 var queues = ["testqueue","testqueue2","testqueue3","testqueue4"];
 */
+process.env.AZURE_STORAGE_ACCOUNT= "peractodata";   
+process.env.AZURE_STORAGE_ACCESS_KEY = "on6JPdBRLixpYWToe+jZ/rZ4RmDcDEwPLt+0sZidws57ZzfzaOTrT1FKKunbaWiBs/aE9qJy0tj83rO4WoybPQ==";
 var queues = ["testqueue"];
 var queueService = azure.createQueueService();
+
+var queueName='servicequeu4';
+
+queueService.createQueueIfNotExists(queueName, function(error){
+    if(!error){
+        console.log("Created");
+    }
+});
+
 
 function ServerRequest(req,res) {
 
 	var body = "";
 
 	i=(i+1)%queues.length;
-	
-	var queueName = queues[i];
+
+//	var queueName = queues[i];
 	//console.log("Reuested");
 	req.on('data', 
 		function (chunk) {
@@ -49,7 +60,7 @@ function SendMessage(queueName,message,iteration) {
 		function(error){
 		    if(error){
 				if(iteration<4){
-					console.log("ResendMessage");
+					console.log("ResendMessage:"+iteration);
 					setTimeout(function() {
 						SendMessage(queueName,message,iteration+1);
 					},250*(iteration+1));
