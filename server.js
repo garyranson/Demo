@@ -12,16 +12,19 @@ var queues = ["testqueue","testqueue2","testqueue3","testqueue4"];
 */
 process.env.AZURE_STORAGE_ACCOUNT= "peractodata";   
 process.env.AZURE_STORAGE_ACCESS_KEY = "on6JPdBRLixpYWToe+jZ/rZ4RmDcDEwPLt+0sZidws57ZzfzaOTrT1FKKunbaWiBs/aE9qJy0tj83rO4WoybPQ==";
-var queues = ["testqueue"];
+var queues = ["peractoq1","peractoq2","peractoq3","peractoq4"];
 var queueService = azure.createQueueService();
 
-var queueName='servicequeu4';
-
-queueService.createQueueIfNotExists(queueName, function(error){
-    if(!error){
-        console.log("Created");
-    }
-});
+for(j=0;j<queues.length;j++)
+{
+	queueService.createQueueIfNotExists(queues[j], function(error){
+	    if(!error){
+	        console.log(queues[j]+ ":Created:"+j);
+	    }
+	    else
+	        console.log(queues[j]+ ":error:"+error);
+	});
+}
 
 
 function ServerRequest(req,res) {
@@ -29,8 +32,7 @@ function ServerRequest(req,res) {
 	var body = "";
 
 	i=(i+1)%queues.length;
-
-//	var queueName = queues[i];
+	var queueName = queues[i];
 	//console.log("Reuested");
 	req.on('data', 
 		function (chunk) {
