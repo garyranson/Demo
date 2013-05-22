@@ -23,15 +23,25 @@ function ServerRequest(req,res) {
 	
 	req.on('end', 
 		function () {
-/*			var message = {
+			var message = {
 				body: body,
 				customProperties: {requestUrl: req.url}
 			};
 
-			SendMessage(queues[queueId],message,0,res);
-*/			res.writeHead(200, { 'Content-Type': 'text/plain' });
-			res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
-
+/*			SendMessage(queues[queueId],message,0,res);
+*/
+			serviceBusService.sendQueueMessage(queueName, message, 
+				function(error){
+					if(!error) {
+						res.writeHead(200, { 'Content-Type': 'text/plain' });
+						res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
+					}
+					else {
+						res.writeHead(400, { 'Content-Type': 'text/plain' });
+						res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
+					}
+				}
+			);
 		}
 	);
 
