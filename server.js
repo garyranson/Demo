@@ -15,12 +15,12 @@ function ServerRequest(req,res) {
 
 	queueId=(queueId+1)%queuelength;
 
-/*	req.on('data', 
+	req.on('data', 
 		function (chunk) {
 			body += chunk;
 		}
 	);
-*/	
+	
 	req.on('end', 
 		function () {
 /*			var message = {
