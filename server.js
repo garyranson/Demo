@@ -32,7 +32,7 @@ function ServerRequest(req,res) {
 		}
 	);
 /*	res.writeHead(200, { 'Content-Type': 'text/plain' });
-	res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
+	res.end("l"); //oaderio-493151bc95c1d6ef3d271b97e6823007");
 */
 }
 
@@ -42,15 +42,15 @@ function SendMessage(queueName,message,iteration,res) {
 		function(error){
 			if(!error) {
 				res.writeHead(200, { 'Content-Type': 'text/plain' });
-				res.end();
+				res.end("a");
 			}
 			else {//if(iteration>=4) 
 				res.writeHead(400, { 'Content-Type': 'text/plain' });
-				res.end();
+				res.end("b");
 			}
-			else {
+			//else {
 		/*		setTimeout(function() {SendMessage(queueName,message,iteration+1,res);},100*(iteration+1));*/
-			}
+		//	}
 		}
 	);
 }
