@@ -1,39 +1,25 @@
-var http = require('http');
-var azure = require('azure');
-var port = process.env.port || 1337;
- 
-var i = 0;
+var http = require('http'),
+	azure = require('azure'),
+	async = require('async'),
+	env   = require('./package.json'),
+	port = process.env.port || 1337;
 
-/*process.env.AZURE_SERVICEBUS_NAMESPACE= "peractodev";   
-process.env.AZURE_SERVICEBUS_ACCESS_KEY= "F9BtX9MXwJYQ2vc4G+GbGeYHn5lrn7UOPVXPRxhMOVQ=";
+var http = require('http'),
+	azure = require('azure'),
+	async = require('async'),
+	port = process.env.port || 1337;
 
-var serviceBusService = azure.createServiceBusService();
-var queues = ["testqueue","testqueue2","testqueue3","testqueue4"];
-*/
-process.env.AZURE_STORAGE_ACCOUNT= "peractodata";   
-process.env.AZURE_STORAGE_ACCESS_KEY = "on6JPdBRLixpYWToe+jZ/rZ4RmDcDEwPLt+0sZidws57ZzfzaOTrT1FKKunbaWiBs/aE9qJy0tj83rO4WoybPQ==";
-var queues = ["peractoq1","peractoq2","peractoq3","peractoq4"];
-var queueService = azure.createQueueService();
-
-for(j=0;j<queues.length;j++)
-{
-	queueService.createQueueIfNotExists(queues[j], function(error){
-	    if(!error){
-	        console.log(queues[j]+ ":Created:"+j);
-	    }
-	    else
-	        console.log(queues[j]+ ":error:"+error);
-	});
-}
-
+var queueId = 0,
+ 	serviceBusService = azure.createServiceBusService("Endpoint=sb://peractodev.servicebus.windows.net/;SharedSecretIssuer=owner;SharedSecretValue=F9BtX9MXwJYQ2vc4G+GbGeYHn5lrn7UOPVXPRxhMOVQ="),
+ 	queues = ["testqueue","testqueue2","testqueue3","testqueue4"],
+ 	queuelength = queues.length;
 
 function ServerRequest(req,res) {
 
 	var body = "";
 
-	i=(i+1)%queues.length;
-	var queueName = queues[i];
-	//console.log("Reuested");
+	queueId=(queueId+1)%queuelength;
+
 	req.on('data', 
 		function (chunk) {
 			body += chunk;
@@ -42,54 +28,45 @@ function ServerRequest(req,res) {
 	
 	req.on('end', 
 		function () {
-/*			var message = {
+			var message = {
 				body: body,
 				customProperties: {requestUrl: req.url}
 			};
-			SendMessage(queueName,message,0);
-*/
-			SendMessage(queueName,body,0);
 
-			res.writeHead(200, { 'Content-Type': 'text/plain' });
-			res.end('loaderio-45271b42060869e24ca2e20e94897a04');
+			SendMessage(queues[queueId],message,0,res);
 		}
 	);
 }
 
-function SendMessage(queueName,message,iteration) {
-
-	queueService.createMessage(queueName, message, 
-		function(error){
-		    if(error){
-				if(iteration<4){
-					console.log("ResendMessage:"+iteration);
-					setTimeout(function() {
-						SendMessage(queueName,message,iteration+1);
-					},250*(iteration+1));
-				}
-	    	}
-		}
-	);
-}
-
-
-/*
-function SendMessage(queueName,message,iteration) {
-
-	//console.log("SendMessage");
+function SendMessage(queueName,message,iteration,res) {
 
 	serviceBusService.sendQueueMessage(queueName, message, 
 		function(error){
-			if(error){
-				if(iteration<4){
-					console.log("ResendMessage");
-					setTimeout(function() {
-						SendMessage(queueName,message,iteration+1);
-					},250*(iteration+1));
-				}
+			if(!error) {
+				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				res.end();
+			}
+			else if(iteration>=4) {
+				res.writeHead(500, { 'Content-Type': 'text/plain' });
+				res.end();
+			}
+			else {
+				setTimeout(function() {SendMessage(queueName,message,iteration+1,res);},100*(iteration+1));
 			}
 		}
 	);
 }
-*/
-http.createServer(ServerRequest).listen(port);
+
+// Check all the queues, start if there are no failures
+async.forEach(queues, 
+	function(queue, callback) { 
+		console.log('Checking Queue: '+queue);
+		serviceBusService.createQueueIfNotExists(queue,callback);
+	}, 
+	function(err) {
+		if(!err) 		{
+			console.log('Listener Started ');
+			http.createServer(ServerRequest).listen(port);
+		}
+	}
+);
