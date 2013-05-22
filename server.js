@@ -31,9 +31,9 @@ function ServerRequest(req,res) {
 			SendMessage(queues[queueId],message,0,res);
 		}
 	);
-	res.writeHead(200, { 'Content-Type': 'text/plain' });
+/*	res.writeHead(200, { 'Content-Type': 'text/plain' });
 	res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
-
+*/
 }
 
 function SendMessage(queueName,message,iteration,res) {
@@ -41,13 +41,13 @@ function SendMessage(queueName,message,iteration,res) {
 	serviceBusService.sendQueueMessage(queueName, message, 
 		function(error){
 			if(!error) {
-/*				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				res.writeHead(200, { 'Content-Type': 'text/plain' });
 				res.end();
-*/			}
-			else if(iteration>=4) {
-/*				res.writeHead(500, { 'Content-Type': 'text/plain' });
+			}
+			else {//if(iteration>=4) 
+				res.writeHead(400, { 'Content-Type': 'text/plain' });
 				res.end();
-*/			}
+			}
 			else {
 		/*		setTimeout(function() {SendMessage(queueName,message,iteration+1,res);},100*(iteration+1));*/
 			}
