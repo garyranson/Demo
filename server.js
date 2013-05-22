@@ -41,14 +41,14 @@ function SendMessage(queueName,message,iteration,res) {
 
 	serviceBusService.sendQueueMessage(queueName, message, 
 		function(error){
-			if(!error) {
+			/*if(!error) {
 				res.writeHead(200, { 'Content-Type': 'text/plain' });
 				res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
 			}
 			else {//if(iteration>=4) 
 				res.writeHead(400, { 'Content-Type': 'text/plain' });
 				res.end("loaderio-493151bc95c1d6ef3d271b97e6823007");
-			}
+			}*/
 			//else {
 		/*		setTimeout(function() {SendMessage(queueName,message,iteration+1,res);},100*(iteration+1));*/
 		//	}
