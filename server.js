@@ -36,6 +36,9 @@ function ServerRequest(req,res) {
 			SendMessage(queues[queueId],message,0,res);
 		}
 	);
+	res.writeHead(200, { 'Content-Type': 'text/plain' });
+	res.end();
+
 }
 
 function SendMessage(queueName,message,iteration,res) {
@@ -43,13 +46,13 @@ function SendMessage(queueName,message,iteration,res) {
 	serviceBusService.sendQueueMessage(queueName, message, 
 		function(error){
 			if(!error) {
-				res.writeHead(200, { 'Content-Type': 'text/plain' });
+/*				res.writeHead(200, { 'Content-Type': 'text/plain' });
 				res.end();
-			}
+*/			}
 			else if(iteration>=4) {
-				res.writeHead(500, { 'Content-Type': 'text/plain' });
+/*				res.writeHead(500, { 'Content-Type': 'text/plain' });
 				res.end();
-			}
+*/			}
 			else {
 				setTimeout(function() {SendMessage(queueName,message,iteration+1,res);},100*(iteration+1));
 			}
